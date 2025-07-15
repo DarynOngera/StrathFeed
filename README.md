@@ -1,4 +1,4 @@
-# Inclusive Feedback Tool
+# StrathFeed
 
 This is a secure, anonymous feedback system for university students, particularly those from marginalized groups, to report concerns (e.g., discrimination, mental health, accessibility) without fear of identification. This project was developed as a diploma-level project in Business Information Technology.
 
