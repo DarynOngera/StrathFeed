@@ -17,8 +17,8 @@ const logAction = async (adminId, actionType, targetId = null, targetType = null
     );
   } catch (error) {
     console.error('Failed to log action:', error);
-    // Depending on the policy, you might want to throw the error
-    // or just log it without interrupting the main operation.
+    // Re-throw the error to be caught by the calling controller
+    throw error;
   }
 };
 

@@ -11,7 +11,12 @@ export default function AdminManager() {
   const fetchAdmins = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:3001/api/auth/admins');
+      const token = sessionStorage.getItem('token');
+      const res = await fetch('http://localhost:3001/api/auth/admins', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
       if (!res.ok) throw new Error('Failed to fetch admins');
       const data = await res.json();
       setAdmins(data);
@@ -34,9 +39,13 @@ export default function AdminManager() {
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
+      const token = sessionStorage.getItem('token');
       const res = await fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify(newAdmin),
       });
       if (!res.ok) {
@@ -53,7 +62,13 @@ export default function AdminManager() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this admin account?')) {
         try {
-            const res = await fetch(`http://localhost:3001/api/auth/admins/${id}`, { method: 'DELETE' });
+            const token = sessionStorage.getItem('token');
+            const res = await fetch(`http://localhost:3001/api/auth/admins/${id}`, {
+              method: 'DELETE',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+              },
+            });
             if (!res.ok) throw new Error('Failed to delete admin');
             fetchAdmins(); // Refresh list
         } catch (err) {
